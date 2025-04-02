@@ -1,102 +1,60 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Table } from "@/components/ui/table";
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { Briefcase, DollarSign, Users, Bell, Settings, LogOut, Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Sidebar } from "./sidebar/sideBarNavigator";
 
-const FreelancerDashboard = () => {
-  const [activeTab, setActiveTab] = useState("projects");
-  const router = useRouter();
-  const projects = [
-    { id: 1, title: "Website Redesign", client: "Acme Inc", status: "in-progress", deadline: "2025-04-15", amount: 2500 },
-    { id: 2, title: "Logo Design", client: "TechStart", status: "pending", deadline: "2025-04-01", amount: 800 },
-    { id: 3, title: "Marketing Campaign", client: "GrowBiz", status: "completed", deadline: "2025-03-15", amount: 3200 },
-  ];
-
+const FreelancerDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-6">
-          <h1 className="text-xl font-bold text-blue-600">FreelanceFlow</h1>
-        </div>
-        <nav className="mt-6">
-          <div className="flex items-center px-6 py-3 cursor-pointer text-gray-600 hover:bg-gray-50" onClick={() => router.push("/projects")}>
-            <Briefcase className="w-5 h-5 mr-3" />
-            <span>Projects</span>
-          </div>
-          <div className="flex items-center px-6 py-3 cursor-pointer text-gray-600 hover:bg-gray-50" onClick={() => router.push("/invoices")}>
-            <DollarSign className="w-5 h-5 mr-3" />
-            <span>Invoices</span>
-          </div>
-          <div className="flex items-center px-6 py-3 cursor-pointer text-gray-600 hover:bg-gray-50" onClick={() => router.push("/profile")}>
-            <Users className="w-5 h-5 mr-3" />
-            <span>Profile</span>
-          </div>
-        </nav>
-      </div>
+    <div className="flex min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100">
+      <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-y-auto">
-        <header className="bg-white shadow-sm">
+      <div className="flex-1 ml-94 p-6 min-h-screen">
+        {/* Header with gradient background */}
+        <header className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-lg shadow-lg">
           <div className="flex justify-between items-center px-6 py-4">
-            <h2 className="text-xl font-semibold text-gray-800">Projects</h2>
+            <div>
+              <h2 className="text-2xl font-bold text-white">Welcome Back!</h2>
+              <p className="text-indigo-100">Your freelance journey at a glance</p>
+            </div>
             <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-500 hover:text-gray-700">
+              <button className="p-2 text-white hover:text-indigo-200 transition-colors">
                 <Bell className="w-5 h-5" />
               </button>
-              <button className="p-2 text-gray-500 hover:text-gray-700">
+              <button className="p-2 text-white hover:text-indigo-200 transition-colors">
                 <Settings className="w-5 h-5" />
               </button>
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-medium">U</div>
             </div>
           </div>
         </header>
 
-        <main className="p-6">
-          <div className="mb-6">
-            <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-              <Plus className="w-4 h-4 mr-2" />
-              New Project
-            </button>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {projects.map((project) => (
-                  <tr key={project.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{project.title}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{project.client}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Badge className={project.status === "completed" ? "bg-green-100 text-green-800" : project.status === "in-progress" ? "bg-blue-100 text-blue-800" : "bg-yellow-100 text-yellow-800"}>{project.status}</Badge>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{project.deadline}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${project.amount}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        {/* Main content area with subtle card styling */}
+        <main className="mt-6">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-white/90">{children}</div>
         </main>
+
+        {/* Optional welcome message */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6 rounded-xl shadow-lg">
+            <h3 className="text-xl font-semibold mb-2">Boost Your Productivity</h3>
+            <p className="text-blue-100 mb-4">You have 3 ongoing projects. Keep up the great work!</p>
+            <button className="px-4 py-2 bg-white text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition-colors">View Projects</button>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h3 className="text-lg font-semibold mb-2">Quick Stats</h3>
+            <div className="space-y-3">
+              <div>
+                <p className="text-gray-500 text-sm">Earnings this month</p>
+                <p className="text-xl font-bold">$2,450</p>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm">Client satisfaction</p>
+                <p className="text-xl font-bold">98%</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
