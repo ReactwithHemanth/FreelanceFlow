@@ -1,12 +1,5 @@
 import { db } from "@/lib/firebase";
-import { 
-  collection, 
-  addDoc, 
-  getDocs, 
-  doc, 
-  updateDoc, 
-  deleteDoc 
-} from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 const PROJECTS_COLLECTION = "projects";
 
@@ -25,9 +18,9 @@ export const addProject = async (projectData: any) => {
 export const getProjects = async () => {
   try {
     const querySnapshot = await getDocs(collection(db, PROJECTS_COLLECTION));
-    return querySnapshot.docs.map(doc => ({
+    return querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     }));
   } catch (error) {
     console.error("Error getting projects: ", error);

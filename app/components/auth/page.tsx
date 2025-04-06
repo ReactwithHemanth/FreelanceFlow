@@ -9,9 +9,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [showBiometric, setShowBiometric] = useState(false);
   const { currentUser, loading, error, login } = useAuth();
-  console.log("🚀 ~ LoginPage ~ currentUser:", currentUser);
   const router = useRouter();
 
   useEffect(() => {
@@ -66,14 +64,14 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {showBiometric && (
+          {/* {showBiometric && (
             <div className="mt-6">
               <button onClick={() => login} disabled={loading} className="w-full flex justify-center items-center py-3 px-4 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all">
                 <Fingerprint className="w-5 h-5 mr-2" />
                 Sign in with Biometrics
               </button>
             </div>
-          )}
+          )} */}
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">

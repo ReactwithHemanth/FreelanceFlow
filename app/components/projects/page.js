@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Bell, Settings, Plus, Badge, DotIcon, Search, Briefcase, Eye, Edit } from "lucide-react";
+import { Bell, Settings, Search, Briefcase, Eye, Edit } from "lucide-react";
 import FreelancerDashboard from "../FreelancerDashboard";
-import { testProjects } from "../../sample/data";
 import { getProjects } from "../../services/projectService";
 import { NewProjectDialog } from "../newProject/page";
 import { useRouter } from "next/navigation";
@@ -12,8 +11,7 @@ import { useAuth } from "../../context/AuthContext";
 const ProjectsPage = () => {
   const [projects, setProject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { currentUser, loading, error, login, checkBiometricSupport, biometricLogin } = useAuth();
-  // console.log("🚀 ~ ProjectsPage ~ currentUser:", currentUser);
+  const { currentUser, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

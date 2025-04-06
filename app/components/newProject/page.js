@@ -68,7 +68,6 @@ export const NewProjectDialog = () => {
                     <input type="text" value={project.title} onChange={(e) => setProject({ ...project, title: e.target.value })} className="w-full px-4 py-3 text-lg font-medium border-b-2 border-gray-200 focus:border-blue-500 focus:outline-none" placeholder="Project name..." autoFocus />
                     {project.title && <Sparkles className="absolute right-3 top-3.5 w-5 h-5 text-yellow-400 animate-pulse" />}
                   </div>
-
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <p className="text-sm text-blue-700">Tip: Make it descriptive like "E-commerce Website Redesign"</p>
                   </div>
@@ -81,7 +80,6 @@ export const NewProjectDialog = () => {
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold mr-3">{project.client.charAt(0) || "?"}</div>
                     <input type="text" value={project.client} onChange={(e) => setProject({ ...project, client: e.target.value })} className="flex-1 focus:outline-none" placeholder="Client name" />
                   </div>
-
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm text-gray-500 mb-1">Deadline</label>

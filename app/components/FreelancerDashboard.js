@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
-import { Briefcase, DollarSign, Users } from "lucide-react";
-import { RiSidebarUnfoldFill } from "react-icons/ri";
 import { Sidebar } from "../sidebar/sideBarNavigator";
 
 const FreelancerDashboard = ({ children }) => {

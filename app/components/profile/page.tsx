@@ -2,13 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import FreelancerDashboard from "../FreelancerDashboard";
-import { User, Mail, Phone, Globe, Edit, Save, X, Briefcase, DollarSign, ChevronDown } from "lucide-react";
+import { Mail, Phone, Globe, Edit, Save, X, ChevronDown, Plus } from "lucide-react";
 import { getUserProfile, updateUserProfile } from "@/app/services/userService";
 import { useAuth } from "@/app/context/AuthContext";
 
 const ProfilePage = () => {
   const { currentUser } = useAuth();
-  console.log("🚀 ~ ProfilePage ~ currentUser:", currentUser);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: "",
@@ -21,15 +20,12 @@ const ProfilePage = () => {
     experience: "",
   });
   const [loading, setLoading] = useState(true);
-  console.log("Loading profile");
 
   useEffect(() => {
     const fetchProfile = async () => {
       if (currentUser?.uid) {
-        console.log("🚀 ~ fetchProfile ~ currentUser?.uid:", currentUser?.uid);
         try {
           const userProfile = await getUserProfile(currentUser.uid);
-          console.log("🚀 ~ fetchProfile ~ userProfile:", userProfile);
           if (userProfile) {
             setProfile({
               name: userProfile?.name || "",

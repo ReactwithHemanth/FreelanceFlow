@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Briefcase, DollarSign, Users, Bell, Settings, LogOut, Plus } from "lucide-react";
+import React from "react";
+import { Bell, Settings } from "lucide-react";
 import { Sidebar } from "./sidebar/sideBarNavigator";
 
 const FreelancerDashboard: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAuth, User, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/lib/firebase";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 interface AuthContextType {
@@ -87,24 +87,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be in the authorized domains list in the Firebase Console.
-    url: "http://localhost:3000/",
-    // This must be true.
-    handleCodeInApp: true,
-    iOS: {
-      bundleId: "com.example.ios",
-    },
-    android: {
-      packageName: "com.example.android",
-      installApp: true,
-      minimumVersion: "12",
-    },
-    // The domain must be configured in Firebase Hosting and owned by the project.
-    linkDomain: "custom-domain.com",
   };
 
   //   const checkBiometricSupport = () => {
