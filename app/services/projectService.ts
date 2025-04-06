@@ -30,7 +30,7 @@ export const getProjects = async () => {
 };
 
 // Update project
-export const updateProject = async (projectId: string, updatedData: any) => {
+export const updateProject = async (projectId: string, updatedData: Project) => {
   try {
     await updateDoc(doc(db, PROJECTS_COLLECTION, projectId), updatedData);
   } catch (error) {
