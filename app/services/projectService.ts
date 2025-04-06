@@ -1,10 +1,11 @@
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { Project } from "../type";
 
 const PROJECTS_COLLECTION = "projects";
 
 // Add new project
-export const addProject = async (projectData: any) => {
+export const addProject = async (projectData: Project) => {
   try {
     const docRef = await addDoc(collection(db, PROJECTS_COLLECTION), projectData);
     return docRef.id;

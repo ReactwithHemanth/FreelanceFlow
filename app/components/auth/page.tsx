@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Fingerprint, Key, Mail } from "lucide-react";
+import { Key, Mail } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext";
 
 export default function LoginPage() {
@@ -75,7 +75,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <button onClick={() => router.push("/register")} className="text-blue-600 hover:underline">
                 Create one
               </button>

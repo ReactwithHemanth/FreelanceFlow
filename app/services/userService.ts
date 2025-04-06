@@ -1,16 +1,11 @@
 import { db } from "@/lib/firebase";
-import { 
-  doc, 
-  setDoc, 
-  getDoc, 
-  updateDoc,
-  collection 
-} from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { UserProfile } from "../type";
 
 const USERS_COLLECTION = "user";
 
 // Create or update user profile
-export const setUserProfile = async (userId: string, userData: any) => {
+export const setUserProfile = async (userId: string, userData: UserProfile) => {
   try {
     await setDoc(doc(db, USERS_COLLECTION, userId), userData, { merge: true });
   } catch (error) {
@@ -32,7 +27,7 @@ export const getUserProfile = async (userId: string) => {
 };
 
 // Update specific fields
-export const updateUserProfile = async (userId: string, updates: any) => {
+export const updateUserProfile = async (userId: string, updates: UserProfile) => {
   try {
     await updateDoc(doc(db, USERS_COLLECTION, userId), updates);
   } catch (error) {

@@ -7,14 +7,17 @@ import { addProject } from "../../services/projectService";
 export const NewProjectDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const [project, setProject] = useState({
-    title: "",
-    client: "",
-    deadline: "",
-    amount: 0,
-    status: "not-started",
-    description: "",
-  });
+  const [project, setProject] =
+    useState <
+    import("../../type").Project >
+    {
+      title: "",
+      client: "",
+      deadline: "",
+      amount: 0,
+      status: "not-started",
+      description: "",
+    };
 
   const handleSubmit = async () => {
     try {
@@ -69,7 +72,7 @@ export const NewProjectDialog = () => {
                     {project.title && <Sparkles className="absolute right-3 top-3.5 w-5 h-5 text-yellow-400 animate-pulse" />}
                   </div>
                   <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-sm text-blue-700">Tip: Make it descriptive like "E-commerce Website Redesign"</p>
+                    <p className="text-sm text-blue-700">Tip: Make it descriptive like &quot;E-commerce Website Redesign&quot;</p>
                   </div>
                 </div>
               )}
