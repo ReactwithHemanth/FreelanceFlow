@@ -11,14 +11,6 @@ import NewProjectDialog from "../newProject/page";
 const ProjectsPage = () => {
   const [projects, setProject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { currentUser, loading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && !currentUser) {
-      router.push("/components/auth?redirect=/projects");
-    }
-  }, [currentUser, loading]);
 
   const fetchProjects = async () => {
     try {
@@ -38,7 +30,7 @@ const ProjectsPage = () => {
   }, []);
 
   return (
-    <div className="flex-1 ml-6 overflow-y-auto">
+    <div className="flex-1 ml-6 overflow-y-auto dark:bg-gray-800">
       {/* Gradient Header */}
       <header className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-b-xl shadow-xl">
         <div className="flex justify-between items-center px-8 py-6">
@@ -57,7 +49,7 @@ const ProjectsPage = () => {
         </div>
       </header>
 
-      <main className="p-6">
+      <main className="p-6 dark:bg-gray-800">
         {/* Action Bar */}
         <div className="flex justify-between items-center mb-8">
           {/* <button className="flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg">

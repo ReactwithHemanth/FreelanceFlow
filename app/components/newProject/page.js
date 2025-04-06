@@ -7,17 +7,14 @@ import { addProject } from "../../services/projectService";
 const NewProjectDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const [project, setProject] =
-    useState <
-    import("../../type").Project >
-    {
-      title: "",
-      client: "",
-      deadline: "",
-      amount: 0,
-      status: "not-started",
-      description: "",
-    };
+  const [project, setProject] = useState({
+    title: "",
+    client: "",
+    deadline: "",
+    amount: 0,
+    status: "not-started",
+    description: "",
+  });
 
   const handleSubmit = async () => {
     try {

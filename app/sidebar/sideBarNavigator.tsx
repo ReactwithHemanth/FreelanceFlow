@@ -2,13 +2,15 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Activity, Briefcase, DollarSign, MessageSquare, Moon, Users } from "lucide-react";
+import { Activity, Briefcase, DollarSign, LogOut, MessageSquare, Moon, Sun, Users } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 export const Sidebar = () => {
   const router = useRouter();
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  console.log("🚀 ~ Sidebar ~ activeItem:", activeItem);
-
+  const { logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const handleNavigation = (path: string) => {
     setActiveItem(path);
     router.push(path);
@@ -81,8 +83,15 @@ export const Sidebar = () => {
       {/* Theme toggle (placeholder) */}
       <div className="px-4 mb-6">
         <div className="bg-gray-800/50 p-2 rounded-full flex justify-center">
-          <button className="p-2 text-gray-400 hover:text-white transition-colors">
-            <Moon className="w-5 h-5" />
+          <button onClick={toggleTheme} className="p-2 text-gray-400 hover:text-white transition-colors" aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}>
+            {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+      <div className="px-4 mb-6">
+        <div className="bg-gray-800/50 p-2 rounded-full flex justify-center">
+          <button onClick={logout} className="p-2 text-gray-400 hover:text-white transition-colors">
+            <LogOut className="w-5 h-5" />
           </button>
         </div>
       </div>

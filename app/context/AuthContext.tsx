@@ -21,43 +21,29 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  console.log("🚀 ~ AuthProvider ~ currentUser:", currentUser);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const auth = getAuth(app);
-  const db = getFirestore(app);
   const router = useRouter();
-  // Check user existence in Firestore
-  const checkUserExists = async (uid: string) => {
-    const userDoc = await getDoc(doc(db, "user", uid));
-    console.log("🚀 ~ checkUserExists ~ userDoc:", userDoc);
-    return userDoc.exists();
-  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const exists = await checkUserExists(user.uid);
-        if (!exists) {
-          await signOut(auth);
-          setCurrentUser(null);
-        } else {
-          setCurrentUser(user);
-        }
-      } else {
-        setCurrentUser(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth state changed:", user); // Debug log
+      setCurrentUser(user);
       setLoading(false);
+      setError(null);
     });
 
-    return unsubscribe;
-  }, [auth]);
+    return unsubscribe; // Cleanup on unmount
+  }, []);
 
   const handleLogout = async () => {
     try {
       const auth = getAuth(app);
       await signOut(auth);
       setCurrentUser(null);
-      router.push("/login");
+      router.push("/components/auth");
     } catch (error) {
       setError(error?.message);
     }
@@ -68,7 +54,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setError(null);
     try {
       const auth = getAuth(app);
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      return userCredential;
     } catch (error) {
       setError(error?.message);
     } finally {
@@ -89,80 +76,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  //   const checkBiometricSupport = () => {
-  //     if (typeof window !== "undefined" && window.PublicKeyCredential) {
-  //       return PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-  //     }
-  //     return false;
-  //   };
-
-  //   const biometricLogin = async () => {
-  //     // if (!checkBiometricSupport()) {
-  //     //   setError("Biometric authentication not supported");
-  //     //   return;
-  //     // }
-
-  //     try {
-  //       // WebAuthn implementation would go here
-  //       // This is a placeholder for actual implementation
-  //       const auth = getAuth(app);
-  //       // In a real app, you would verify the biometric signature
-  //       // and then sign in the user
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
-  //   const registerBiometric = async (email: string) => {
-  //     try {
-  //       // This is a simplified version - actual implementation requires server-side components
-  //       const auth = getAuth(app);
-  //       const credential = await navigator.credentials.create({
-  //         publicKey: {
-  //           challenge: new Uint8Array(32),
-  //           rp: { name: "Freelancer Dashboard" },
-  //           user: {
-  //             id: new Uint8Array(16),
-  //             name: email,
-  //             displayName: email,
-  //           },
-  //           pubKeyCredParams: [
-  //             { type: "public-key", alg: -7 }, // ES256
-  //           ],
-  //           authenticatorSelection: {
-  //             authenticatorAttachment: "platform",
-  //             userVerification: "required",
-  //           },
-  //         },
-  //       });
-
-  //       // Store the credential ID with the user's account in your backend
-  //       // Then you can use it for future authentications
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
-
-  //   const authenticateBiometric = async () => {
-  //     try {
-  //       // Get the credential ID from your backend for this user
-  //       const credential = await navigator.credentials.get({
-  //         publicKey: {
-  //           challenge: new Uint8Array(32),
-  //           allowCredentials: [{
-  //             type: "public-key",
-  //             id: new Uint8Array(STORED_CREDENTIAL_ID), // You need to store this
-  //             transports: ["internal"],
-  //           }],
-  //           userVerification: "required",
-  //         },
-  //       });
-
-  //       // Verify the signature with your backend
-  //       // Then sign in the user with Firebase
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
   return (
     <AuthContext.Provider
       value={{

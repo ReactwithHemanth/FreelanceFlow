@@ -5,11 +5,31 @@ import { UserProfile } from "../type";
 const USERS_COLLECTION = "user";
 
 // Create or update user profile
-export const setUserProfile = async (userId: string, userData: UserProfile) => {
+export const saveUserProfile = async (userId: string, userData: UserProfile) => {
   try {
-    await setDoc(doc(db, USERS_COLLECTION, userId), userData, { merge: true });
+    // Check if document exists
+    const docRef = doc(db, USERS_COLLECTION, userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // Document exists, update only the provided fields
+      const updates: Partial<UserProfile> = {};
+      for (const [key, value] of Object.entries(userData)) {
+        if (value !== undefined) {
+          updates[key as keyof UserProfile] = value;
+        }
+      }
+
+      await setDoc(docRef, updates, { merge: true });
+    } else {
+      // Document doesn't exist, create with all data
+      await setDoc(docRef, {
+        ...userData,
+        createdAt: new Date().toISOString(), // Add creation timestamp
+      });
+    }
   } catch (error) {
-    console.error("Error setting user profile:", error);
+    console.error("Error saving user profile:", error);
     throw error;
   }
 };
