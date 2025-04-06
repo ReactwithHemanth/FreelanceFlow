@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "freelanceflow",
+    "public": "FreelanceFlow",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
 }
