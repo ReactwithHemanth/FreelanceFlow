@@ -1,6 +1,7 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
+  output: "export",
+  trailingSlash: true,
+  distDir: "out",
   /* config options here */
 };
 
