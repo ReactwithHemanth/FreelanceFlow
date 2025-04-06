@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User, Mail, Phone, Globe, Edit, Save, X, Briefcase, DollarSign, ChevronDown } from "lucide-react";
+import { Mail, Phone, Globe, Edit, Save, X, ChevronDown } from "lucide-react";
 import FreelancerDashboard from "../FreelancerDashboard";
 import { useAuth } from "@/app/context/AuthContext";
-import { getUserProfile, saveUserProfile, setUserProfile, updateUserProfile } from "@/app/services/userService";
+import { getUserProfile, saveUserProfile } from "@/app/services/userService";
 
 const ProfilePage = () => {
   const { currentUser } = useAuth();
@@ -138,17 +138,17 @@ const ProfilePage = () => {
 
       {error && <div className="mx-6 mt-6 p-4 bg-red-50 text-red-600 rounded-lg">{error}</div>}
 
-      <main className="p-6">
+      <main className="p-6 dark:bg-gray-800">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Profile Card */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="lg:col-span-1 ">
+            <div className="dark:bg-gray-800 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <div className="flex flex-col items-center">
                 <div className="relative mb-4">
                   <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center text-white text-4xl font-bold">{profile.name.charAt(0) || currentUser.email?.charAt(0).toUpperCase() || "U"}</div>
                 </div>
 
-                {isEditing ? <input type="text" name="name" value={profile.name} onChange={handleInputChange} className="text-xl font-bold text-center mb-2 px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" placeholder="Your name" /> : <h2 className="text-xl font-bold text-center mb-2">{profile.name || "Your Name"}</h2>}
+                {isEditing ? <input type="text" name="name" value={profile.name} onChange={handleInputChange} className="text-xl font-bold text-center mb-2 px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" placeholder="Your name" /> : <h2 className="text-xl dark:bg-gray-800 font-bold text-center mb-2">{profile.name || "Your Name"}</h2>}
 
                 <div className="w-full space-y-4 mt-6">
                   {/* Email (not editable) */}
@@ -182,13 +182,13 @@ const ProfilePage = () => {
           {/* Right Column */}
           <div className="lg:col-span-2 space-y-6">
             {/* About Section */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className=" dark:bg-gray-800 bg-white rounded-xl shadow-sm border border-gray-200 p-6 dark:border-red-100">
               <h3 className="font-semibold text-lg mb-4">About</h3>
               {isEditing ? <textarea name="bio" value={profile.bio} onChange={handleInputChange} rows={4} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell clients about yourself and your experience..." /> : <p className="text-gray-700">{profile.bio || "No bio added yet. Tell clients about yourself and your experience."}</p>}
             </div>
 
             {/* Skills Section */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className=" dark:bg-gray-800 bg-white rounded-xl shadow-sm border border-gray-200 dark:border-gray-100 p-6">
               <h3 className="font-semibold text-lg mb-4">Skills & Expertise</h3>
               {isEditing ? (
                 <div className="space-y-3">
@@ -208,7 +208,7 @@ const ProfilePage = () => {
                 <div className="flex flex-wrap gap-2">
                   {profile.skills.length > 0 ? (
                     profile.skills.map((skill, index) => (
-                      <span key={index} className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                      <span key={index} className="px-3 py-1 dark:bg-white-800 dark:text-white-800 bg-blue-50 text-blue-700 rounded-full text-sm">
                         {skill}
                       </span>
                     ))
@@ -220,7 +220,7 @@ const ProfilePage = () => {
             </div>
 
             {/* Professional Info */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="dark:bg-gray-800 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <h3 className="font-semibold text-lg mb-4">Professional Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
