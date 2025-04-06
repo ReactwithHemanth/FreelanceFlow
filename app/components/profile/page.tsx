@@ -108,7 +108,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto ml-6">
+    <div className="flex-1 overflow-y-auto ml-6 dark:bg-gray-800">
       {/* Header */}
       <header className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-b-xl shadow-xl p-6 text-white">
         <div className="flex justify-between items-center">

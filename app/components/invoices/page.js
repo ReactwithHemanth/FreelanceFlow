@@ -81,7 +81,7 @@ const InvoicesPage = () => {
   };
 
   return (
-    <div className="flex-1 ml-6 overflow-y-auto">
+    <div className="flex-1 ml-6 overflow-y-auto dark:bg-gray-800">
       {/* Gradient Header */}
       <header className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-b-xl shadow-xl">
         <div className="flex justify-between items-center px-8 py-6">

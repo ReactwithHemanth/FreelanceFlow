@@ -25,7 +25,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <div className="w-72 bg-gray-900 h-screen fixed border-r border-gray-800 backdrop-blur-lg bg-opacity-90">
+    <div className="w-72 bg-gray-900 h-screen fixed border-r border-gray-800 backdrop-blur-lg bg-opacity-90 dark:bg-gray-800">
       {/* Logo with futuristic accent */}
       <div className="p-6 flex items-center">
         <div className="relative">
