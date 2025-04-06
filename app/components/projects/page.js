@@ -4,16 +4,30 @@ import React, { useEffect, useState } from "react";
 import { Bell, Settings, Plus, Badge, DotIcon, Search, Briefcase, Eye, Edit } from "lucide-react";
 import FreelancerDashboard from "../FreelancerDashboard";
 import { testProjects } from "../../sample/data";
+import { getProjects } from "../../services/projectService";
+import { NewProjectDialog } from "../newProject/page";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
 
 const ProjectsPage = () => {
   const [projects, setProject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { currentUser, loading, error, login, checkBiometricSupport, biometricLogin } = useAuth();
+  // console.log("🚀 ~ ProjectsPage ~ currentUser:", currentUser);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !currentUser) {
+      router.push("/components/auth?redirect=/projects");
+    }
+  }, [currentUser, loading]);
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch("/api/projects");
-      const data = await res?.json();
-      setProject(testProjects);
+      // const res = await fetch("/api/projects");
+      const projectsData = await getProjects();
+      // const data = await res?.json();
+      setProject(projectsData);
     } catch (error) {
       console.error("Error fetching projects:", error);
     } finally {
@@ -48,10 +62,11 @@ const ProjectsPage = () => {
       <main className="p-6">
         {/* Action Bar */}
         <div className="flex justify-between items-center mb-8">
-          <button className="flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg">
+          {/* <button className="flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg">
             <Plus className="w-5 h-5 mr-2" />
             New Project
-          </button>
+          </button> */}
+          <NewProjectDialog />
 
           <div className="relative">
             <input type="text" placeholder="Search projects..." className="pl-10 pr-4 py-2 w-64 bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
@@ -93,8 +108,8 @@ const ProjectsPage = () => {
                     </td>
                     <td className="px-6 py-5 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold mr-3">{project?.client.charAt(0)}</div>
-                        <div className="text-sm text-gray-700">{project?.client}</div>
+                        <div className="flex-shrink-0 h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold mr-3">{project?.client?.charAt(0).toUpperCase()}</div>
+                        <div className="text-sm text-gray-700">{project?.clientId || project?.client}</div>
                       </div>
                     </td>
                     <td className="px-6 py-5 whitespace-nowrap">
@@ -103,7 +118,7 @@ const ProjectsPage = () => {
                         ${project?.status === "completed" ? "bg-green-100 text-green-800" : project?.status === "in-progress" ? "bg-blue-100 text-blue-800" : "bg-yellow-100 text-yellow-800"}
                       `}
                       >
-                        {project?.status}
+                        {project?.status?.toUpperCase()}
                       </span>
                     </td>
                     <td className="px-6 py-5 whitespace-nowrap">
@@ -116,7 +131,7 @@ const ProjectsPage = () => {
                         {new Date(project?.deadline) < new Date() ? "Overdue" : "Due soon"}
                       </div>
                     </td>
-                    <td className="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-700">${project.amount.toLocaleString()}</td>
+                    <td className="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-700">${project?.amount?.toLocaleString()}</td>
                     <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-500">
                       <button className="text-blue-600 hover:text-blue-900 mr-3">
                         <Eye className="w-4 h-4" />
@@ -144,7 +159,7 @@ const ProjectsPage = () => {
           </div>
           <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-100">
             <h3 className="text-sm font-medium text-gray-500 mb-1">Total Revenue</h3>
-            <p className="text-3xl font-bold text-purple-600">${projects?.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}</p>
+            <p className="text-3xl font-bold text-purple-600">${projects?.reduce((sum, p) => sum + p?.amount, 0).toLocaleString()}</p>
           </div>
         </div>
       </main>

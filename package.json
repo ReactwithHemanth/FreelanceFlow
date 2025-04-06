@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
+    "@react-firebase/firestore": "^0.5.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "firebase": "^11.6.0",
     "lucide-react": "^0.483.0",
     "mongoose": "^8.12.2",
     "motion": "^12.5.0",
@@ -20,6 +22,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "recharts": "^2.15.2",
     "tailwind-merge": "^3.0.2",
     "tw-animate-css": "^1.2.4"
   },
