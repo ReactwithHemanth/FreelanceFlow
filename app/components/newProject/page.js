@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus, X, ArrowRight, Check, Sparkles } from "lucide-react";
 import { addProject } from "../../services/projectService";
 
-export const NewProjectDialog = () => {
+const NewProjectDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [project, setProject] =
@@ -143,3 +143,4 @@ export const NewProjectDialog = () => {
     </>
   );
 };
+export default NewProjectDialog;

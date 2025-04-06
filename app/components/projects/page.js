@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Bell, Settings, Search, Briefcase, Eye, Edit } from "lucide-react";
 import FreelancerDashboard from "../FreelancerDashboard";
 import { getProjects } from "../../services/projectService";
-import { NewProjectDialog } from "../newProject/page";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
+import NewProjectDialog from "../newProject/page";
 
 const ProjectsPage = () => {
   const [projects, setProject] = useState([]);
